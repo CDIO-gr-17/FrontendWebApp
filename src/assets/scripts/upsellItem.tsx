@@ -1,11 +1,10 @@
 import productArray from "./product";
-import { ProductLine } from "./productLine";
 import { useState } from "react";
 
 
- function handleClick(){
+function handleClick() {
     alert("Are you sure you want to checkout?");
- }
+}
 export function UpsellItem() {
     const [upsellItems, setUpsellItems] = useState(productArray);
 
@@ -14,31 +13,26 @@ export function UpsellItem() {
         let i = upsellItems[id].upsellProductId
         return upsellItems[i].name;
     }
+    getUpsellItemsName //Remove
+    setUpsellItems //Remove
     return ( //should not return static information
         <>
             <section className="upsellItems">
-                
+
                 <h2>Products you might also like!</h2>
-                 <img src={"productPics/product" + upsellItems[4].id + ".jpg"} className = "productImages" width="150" height="150"  />
-                 <ul>
+                <img src={"productPics/product" + upsellItems[4].id + ".jpg"} className="productImages" width="150" height="150" />
+                <ul>
                     <ul>
                         <b>Product </b>
                         {upsellItems[4].name}
                     </ul>
                     <ul>
                         <b>Price {
-                        upsellItems[4].price}</b>
+                            upsellItems[4].price}</b>
                     </ul>
-                    <button onClick={handleClick}> Contiue Shopping 
+                    <button onClick={handleClick}> Contiue Shopping
                         <a href="."></a> </button>
-                 </ul>
-                
-                        
-
-                    
-                    
-                    
-                
+                </ul>
             </section>
         </>
     );

@@ -1,9 +1,6 @@
 import { fireEvent, render, screen } from "@testing-library/react"
 import { describe, expect, test } from "vitest"
 import App from "./App"
-import { ProductLine } from "./assets/scripts/productLine"
-import productsData from './assets/media/products.json'
-import  { Product } from './assets/scripts/product'
 import { RemoveButton } from "./assets/scripts/removeButton"
 
 describe(App.name, () => {
