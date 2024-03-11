@@ -1,34 +1,34 @@
 import { useEffect, useState } from "react";
 import { Product } from "./product";
 import { RemoveButton } from "./removeButton";
-import { QuantityInput } from "./quantityInput";
 interface productLineProps {
+  quantity: number;
   product: Product;
   handleRemoveItem: (id: number) => void;
-  updateTotalPrice: (id: number, price: number) => void;
+  updateTotalPrice: (price: number) => void;
 }
 
 export function ProductLine({
+  quantity,
   product,
   handleRemoveItem,
   updateTotalPrice,
 }: productLineProps) {
   const [giftwrapping, setGiftwrapping] = useState(false);
-  const [quantity, setQuantity] = useState(1);
+  const [antal, setQuantity] = useState(quantity);
   giftwrapping.valueOf(); // to be deleted
 
   var totalLinePrice =
-    quantity >= product.rebateQuantity
-      ? product.price * quantity * (1 - product.rebatePercent / 100)
-      : product.price * quantity;
+    antal >= product.rebateQuantity
+      ? product.price * antal * (1 - product.rebatePercent / 100)
+      : product.price * antal;
 
   useEffect(() => {
-    updateTotalPrice(product.id, totalLinePrice);
+    updateTotalPrice(totalLinePrice);
   }, [totalLinePrice]);
 
-  const onQuantityChange = (quantity: number) => {
-    //not used
-    setQuantity(quantity);
+  const onQuantityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setQuantity(parseInt(event.target.value));
   };
 
   const onGiftwrappingChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,9 +36,9 @@ export function ProductLine({
   };
 
   return (
-    <tr>
+    <tr className="lineItem">
       <td>
-        <div className="lineItemFirst">
+        <div>
           <img
             src={"productPics/product" + product.id + ".jpg"}
             className="productImages"
@@ -55,10 +55,12 @@ export function ProductLine({
       </td>
       <td>
         <div>
-          <QuantityInput
-            quantity={quantity}
-            setQuantity={setQuantity}
-            product={product}
+          <input
+            type="number"
+            min="1"
+            id={`Quantity-${product.id.toString()}`}
+            defaultValue={1}
+            onChange={onQuantityChange}
           />
         </div>
       </td>
@@ -66,9 +68,15 @@ export function ProductLine({
         <div>{totalLinePrice.toFixed(2)}</div>
       </td>
       <td>
-        <div className="lineItemGiftwrapping">
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          {/*shoukd be moved*/}
           <input
-            className="giftwrappingCheckbox"
             type="checkbox"
             id={`Giftwrapping-${product.id.toString()}`}
             onChange={onGiftwrappingChange}
@@ -80,7 +88,7 @@ export function ProductLine({
       </td>
 
       <td>
-        <div className="lineItemLast">
+        <div>
           <RemoveButton onClick={() => handleRemoveItem(product.id)} />
         </div>
       </td>
