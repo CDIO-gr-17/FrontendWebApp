@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import "./NavigationBar.css";
 import { useEffect, useState } from "react";
 import { Steps } from "../../steps";
@@ -48,9 +48,7 @@ export default function NavigationBar() {
         </li>
         <div className={decideClass(Steps.Delivery) + "divider"}></div>
         <li className={decideClass(Steps.Confirmation)}>
-          <Link className="bubble" to="/confirmation">
-            Confirmation
-          </Link>
+          <p className="bubble">Confirmation</p>
         </li>
       </ul>
     </nav>
